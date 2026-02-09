@@ -61,8 +61,8 @@ const Profile = () => {
             console.error(error);
             Swal.fire({
                 icon: "error",
-                title: "Oops...",
-                text: "Something went wrong!",
+                title: "Update Failed",
+                text: error.message || "Something went wrong!",
             });
         } finally {
             setUploading(false);
