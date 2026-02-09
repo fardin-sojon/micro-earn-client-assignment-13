@@ -1,5 +1,5 @@
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { FaBook, FaCalendar, FaEnvelope, FaHome, FaList, FaSearch, FaShoppingCart, FaUsers, FaUtensils, FaWallet, FaSignOutAlt } from "react-icons/fa";
+import { FaBook, FaCalendar, FaEnvelope, FaHome, FaList, FaSearch, FaShoppingCart, FaUsers, FaUtensils, FaWallet, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
 import useRole from "../hooks/useRole";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
@@ -121,6 +121,10 @@ const DashboardLayout = () => {
 
                     {/* Logout Button at Bottom */}
                     <div className="mb-4">
+                        <Link to="/dashboard/profile" className="btn w-full btn-outline border-white text-white hover:bg-white hover:text-orange-500 flex items-center gap-2 mb-2">
+                            <FaUserCircle></FaUserCircle>
+                            Profile
+                        </Link>
                         <button onClick={handleLogout} className="btn w-full btn-outline border-white text-white hover:bg-white hover:text-orange-500 flex items-center gap-2">
                             <FaSignOutAlt></FaSignOutAlt>
                             Logout

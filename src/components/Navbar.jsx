@@ -117,11 +117,12 @@ const Navbar = () => {
                                     </label>
                                     <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
                                         <li>
-                                            <a className="justify-between">
+                                            <div className="justify-between">
                                                 {user?.displayName}
                                                 <span className="badge">User</span>
-                                            </a>
+                                            </div>
                                         </li>
+                                        <li><Link to="/dashboard/profile">Profile</Link></li>
                                         <li><button onClick={handleLogOut}>Logout</button></li>
                                     </ul>
                                 </div>

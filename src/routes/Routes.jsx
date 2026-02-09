@@ -22,99 +22,105 @@ import PaymentHistory from "../pages/Dashboard/PaymentHistory";
 import TaskToReview from "../pages/Dashboard/TaskToReview";
 import PaymentSuccess from "../pages/Dashboard/PaymentSuccess";
 
-export const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <MainLayout></MainLayout>,
-    children: [
-      {
-        path: "/",
-        element: <Home></Home>,
-      },
-      {
-        path: "/login",
-        element: <Login></Login>,
-      },
-      {
-        path: "/register",
-        element: <Register></Register>,
-      },
-    ],
-  },
-  {
-    path: "dashboard",
-    element: <DashboardLayout></DashboardLayout>,
-    children: [
-        {
-            path: 'worker-home',
-            element: <WorkerHome></WorkerHome>
-        },
-        {
-            path: 'buyer-home',
-            element: <BuyerHome></BuyerHome>
-        },
-        {
-            path: 'admin-home',
-            element: <AdminHome></AdminHome>
-        },
-        {
-            path: 'manage-users',
-            element: <ManageUsers></ManageUsers>
-        },
-        {
-            path: 'add-task',
-            element: <AddTask></AddTask>
-        },
-        {
-            path: 'my-tasks',
-            element: <MyTasks></MyTasks>
-        },
-        {
-            path: 'update-task/:id',
-            element: <UpdateTask></UpdateTask>,
+import Profile from "../pages/Dashboard/Profile";
 
-        },
-        {
-            path: 'task-list',
-            element: <TaskList></TaskList>
-        },
-        {
-            path: 'task-details/:id',
-            element: <TaskDetails></TaskDetails>,
-             loader: ({params}) => fetch(`${import.meta.env.VITE_API_URL}/tasks/${params.id}`).then(res => res.json())
-        },
-        {
-            path: 'task-to-review',
-            element: <TaskToReview></TaskToReview>
-        },
-        {
-            path: 'purchase-coin',
-            element: <PurchaseCoin></PurchaseCoin>
-        },
-        {
-            path: 'payment-history',
-            element: <PaymentHistory></PaymentHistory>
-        },
-         {
-             path: 'my-submissions',
-            element: <MySubmissions></MySubmissions>
-        },
-        {
-             path: 'withdrawals',
-            element: <Withdrawals></Withdrawals>
-        },
-        {
-            path: 'manage-tasks',
-            element: <ManageTasks></ManageTasks>
-        },
-        {
-            path: 'withdraw-requests',
-            element: <WithdrawRequests></WithdrawRequests>
-        },
-        {
-            path: 'payment/success',
-            element: <PaymentSuccess></PaymentSuccess>
-        }
-    ]
-  }
+export const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <MainLayout></MainLayout>,
+        children: [
+            {
+                path: "/",
+                element: <Home></Home>,
+            },
+            {
+                path: "/login",
+                element: <Login></Login>,
+            },
+            {
+                path: "/register",
+                element: <Register></Register>,
+            },
+        ],
+    },
+    {
+        path: "dashboard",
+        element: <DashboardLayout></DashboardLayout>,
+        children: [
+            {
+                path: 'worker-home',
+                element: <WorkerHome></WorkerHome>
+            },
+            {
+                path: 'buyer-home',
+                element: <BuyerHome></BuyerHome>
+            },
+            {
+                path: 'admin-home',
+                element: <AdminHome></AdminHome>
+            },
+            {
+                path: 'manage-users',
+                element: <ManageUsers></ManageUsers>
+            },
+            {
+                path: 'add-task',
+                element: <AddTask></AddTask>
+            },
+            {
+                path: 'my-tasks',
+                element: <MyTasks></MyTasks>
+            },
+            {
+                path: 'update-task/:id',
+                element: <UpdateTask></UpdateTask>,
+
+            },
+            {
+                path: 'task-list',
+                element: <TaskList></TaskList>
+            },
+            {
+                path: 'task-details/:id',
+                element: <TaskDetails></TaskDetails>,
+                loader: ({ params }) => fetch(`${import.meta.env.VITE_API_URL}/tasks/${params.id}`).then(res => res.json())
+            },
+            {
+                path: 'task-to-review',
+                element: <TaskToReview></TaskToReview>
+            },
+            {
+                path: 'purchase-coin',
+                element: <PurchaseCoin></PurchaseCoin>
+            },
+            {
+                path: 'payment-history',
+                element: <PaymentHistory></PaymentHistory>
+            },
+            {
+                path: 'my-submissions',
+                element: <MySubmissions></MySubmissions>
+            },
+            {
+                path: 'withdrawals',
+                element: <Withdrawals></Withdrawals>
+            },
+            {
+                path: 'manage-tasks',
+                element: <ManageTasks></ManageTasks>
+            },
+            {
+                path: 'withdraw-requests',
+                element: <WithdrawRequests></WithdrawRequests>
+            },
+            {
+                path: 'payment/success',
+                element: <PaymentSuccess></PaymentSuccess>
+            },
+            {
+                path: 'profile',
+                element: <Profile></Profile>
+            }
+        ]
+    }
 ]);
