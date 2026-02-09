@@ -1,8 +1,6 @@
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { FaBook, FaCalendar, FaEnvelope, FaHome, FaList, FaSearch, FaShoppingCart, FaUsers, FaUtensils, FaWallet, FaSignOutAlt } from "react-icons/fa";
-import useAdmin from "../hooks/useAdmin";
-import useBuyer from "../hooks/useBuyer";
-import useWorker from "../hooks/useWorker";
+import useRole from "../hooks/useRole";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import logo from "../assets/logo.svg";
@@ -21,12 +19,13 @@ const DashboardLayout = () => {
     // Actually, I need to implement the backend endpoints for these hooks to work.
 
     const { user, logOut, loading } = useContext(AuthContext);
-    const [isAdmin] = useAdmin();
-    const [isBuyer] = useBuyer();
-    const [isWorker] = useWorker();
+    const [role, isRoleLoading] = useRole();
+    const isAdmin = role === 'admin';
+    const isBuyer = role === 'buyer';
+    const isWorker = role === 'worker';
     const navigate = useNavigate();
 
-    if (loading) {
+    if (loading || isRoleLoading) {
         return <div className="flex justify-center items-center h-screen"><span className="loading loading-spinner loading-lg"></span></div>;
     }
 

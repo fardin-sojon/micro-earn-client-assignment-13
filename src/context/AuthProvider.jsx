@@ -1,13 +1,13 @@
 import { createContext, useEffect, useState } from "react";
-import { 
-    GoogleAuthProvider, 
-    createUserWithEmailAndPassword, 
-    getAuth, 
-    onAuthStateChanged, 
-    signInWithEmailAndPassword, 
-    signInWithPopup, 
-    signOut, 
-    updateProfile 
+import {
+    GoogleAuthProvider,
+    createUserWithEmailAndPassword,
+    getAuth,
+    onAuthStateChanged,
+    signInWithEmailAndPassword,
+    signInWithPopup,
+    signOut,
+    updateProfile
 } from "firebase/auth";
 import auth from "../firebase/firebase.config";
 import axios from "axios";
@@ -56,7 +56,15 @@ const AuthProvider = ({ children }) => {
                         if (res.data.token) {
                             localStorage.setItem('access-token', res.data.token);
                             setLoading(false);
+                        } else {
+                            localStorage.removeItem('access-token');
+                            setLoading(false);
                         }
+                    })
+                    .catch(error => {
+                        console.error("JWT Error:", error);
+                        localStorage.removeItem('access-token');
+                        setLoading(false);
                     })
             }
             else {
@@ -64,7 +72,7 @@ const AuthProvider = ({ children }) => {
                 localStorage.removeItem('access-token');
                 setLoading(false);
             }
-            
+
         });
         return () => {
             return unsubscribe();
