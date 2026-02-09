@@ -46,7 +46,8 @@ const MyTasks = () => {
     return (
         <div className="p-10">
             <h2 className="text-3xl font-bold mb-10">My Tasks: {tasks.length}</h2>
-            <div className="overflow-x-auto">
+            {/* Desktop Table View */}
+            <div className="overflow-x-auto hidden lg:block">
                 <table className="table">
                     <thead>
                         <tr>
@@ -79,6 +80,38 @@ const MyTasks = () => {
                         }
                     </tbody>
                 </table>
+            </div>
+
+            {/* Mobile/Tablet Card View */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:hidden">
+                {
+                    tasks.map((task) => (
+                        <div key={task._id} className="card bg-base-100 shadow-xl border border-gray-200">
+                            <div className="card-body p-4">
+                                <h2 className="card-title text-orange-500">{task.task_title}</h2>
+                                <p className="text-sm text-gray-500 mb-2">Deadline: {task.completion_date}</p>
+
+                                <div className="grid grid-cols-2 gap-2 text-sm my-2">
+                                    <div>
+                                        <p className="font-bold">Payable:</p>
+                                        <p>{task.payable_amount}</p>
+                                    </div>
+                                    <div>
+                                        <p className="font-bold">Workers:</p>
+                                        <p>{task.required_workers}</p>
+                                    </div>
+                                </div>
+
+                                <div className="card-actions justify-end mt-2">
+                                    <Link to={`/dashboard/update-task/${task._id}`}>
+                                        <button className="btn btn-sm bg-orange-500 text-white">Update</button>
+                                    </Link>
+                                    <button onClick={() => handleDelete(task._id)} className="btn btn-sm bg-red-600 text-white">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
             </div>
         </div>
     );

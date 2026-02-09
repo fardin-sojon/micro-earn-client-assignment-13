@@ -42,7 +42,8 @@ const ManageTasks = () => {
     return (
         <div className="p-10">
             <h2 className="text-3xl font-bold mb-10">Manage Tasks: {tasks.length}</h2>
-            <div className="overflow-x-auto">
+            {/* Table View for Desktop (Large Screens) */}
+            <div className="overflow-x-auto hidden lg:block">
                 <table className="table">
                     <thead>
                         <tr>
@@ -69,6 +70,25 @@ const ManageTasks = () => {
                         }
                     </tbody>
                 </table>
+            </div>
+
+            {/* Card View for Mobile & Tablet */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:hidden">
+                {
+                    tasks.map((task) => (
+                        <div key={task._id} className="card bg-base-100 shadow-xl border border-gray-200">
+                            <div className="card-body p-4">
+                                <h2 className="card-title text-orange-500">{task.task_title}</h2>
+                                <p><span className="font-bold">Buyer:</span> {task.buyer_name}</p>
+                                <p><span className="font-bold">Email:</span> {task.buyer_email}</p>
+                                <p><span className="font-bold">Availability:</span> {task.required_workers} slots</p>
+                                <div className="card-actions justify-end mt-2">
+                                    <button onClick={() => handleDelete(task._id)} className="btn btn-sm bg-red-600 text-white hover:bg-red-700">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
             </div>
         </div>
     );

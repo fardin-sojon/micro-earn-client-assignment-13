@@ -17,7 +17,7 @@ const WithdrawRequests = () => {
     const handleApprove = (id) => {
         axiosSecure.patch(`/withdrawals/${id}`)
             .then(res => {
-                if(res.data.modifiedCount > 0){
+                if (res.data.modifiedCount > 0) {
                     refetch();
                     Swal.fire({
                         position: "top-end",
@@ -33,7 +33,8 @@ const WithdrawRequests = () => {
     return (
         <div className="p-10">
             <h2 className="text-3xl font-bold mb-10">Withdraw Requests: {withdrawals.length}</h2>
-            <div className="overflow-x-auto">
+            {/* Desktop Table View */}
+            <div className="overflow-x-auto hidden lg:block">
                 <table className="table">
                     <thead>
                         <tr>
@@ -64,6 +65,43 @@ const WithdrawRequests = () => {
                         }
                     </tbody>
                 </table>
+            </div>
+
+            {/* Mobile/Tablet Card View */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:hidden">
+                {
+                    withdrawals.map((withdrawal) => (
+                        <div key={withdrawal._id} className="card bg-base-100 shadow-xl border border-gray-200">
+                            <div className="card-body p-4">
+                                <h2 className="card-title text-primary">{withdrawal.worker_name}</h2>
+                                <p className="text-sm text-gray-500 mb-2">{withdrawal.worker_email}</p>
+
+                                <div className="grid grid-cols-2 gap-2 text-sm my-2">
+                                    <div>
+                                        <p className="font-bold">Amount:</p>
+                                        <p>${withdrawal.withdrawal_amount}</p>
+                                    </div>
+                                    <div>
+                                        <p className="font-bold">Coins:</p>
+                                        <p>{withdrawal.withdrawal_coin}</p>
+                                    </div>
+                                    <div>
+                                        <p className="font-bold">System:</p>
+                                        <p>{withdrawal.payment_system}</p>
+                                    </div>
+                                    <div>
+                                        <p className="font-bold">Account:</p>
+                                        <p className="break-all">{withdrawal.account_number}</p>
+                                    </div>
+                                </div>
+
+                                <div className="card-actions justify-end mt-2">
+                                    <button onClick={() => handleApprove(withdrawal._id)} className="btn btn-primary btn-sm">Approve Payment</button>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
             </div>
         </div>
     );
