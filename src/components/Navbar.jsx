@@ -5,9 +5,11 @@ import { AuthContext } from "../context/AuthProvider";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { FaBell } from "react-icons/fa";
+import useRole from "../hooks/useRole";
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
+    const [role] = useRole();
     const axiosSecure = useAxiosSecure();
     const location = useLocation();
 
@@ -44,7 +46,11 @@ const Navbar = () => {
         {
             user ? <>
                 <li>
-                    <Link to="/dashboard/worker-home" className={location.pathname.includes('dashboard') ? "text-yellow-400 font-bold" : "text-white"}>
+                    <Link to={
+                        role === 'admin' ? '/dashboard/admin-home' :
+                            role === 'buyer' ? '/dashboard/buyer-home' :
+                                '/dashboard/worker-home'
+                    } className={location.pathname.includes('dashboard') ? "text-yellow-400 font-bold" : "text-white"}>
                         Dashboard
                     </Link>
                 </li>

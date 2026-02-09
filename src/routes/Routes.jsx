@@ -23,6 +23,12 @@ import TaskToReview from "../pages/Dashboard/TaskToReview";
 import PaymentSuccess from "../pages/Dashboard/PaymentSuccess";
 
 import Profile from "../pages/Dashboard/Profile";
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
+import BuyerRoute from "./BuyerRoute";
+import WorkerRoute from "./WorkerRoute";
+
+import DashboardRedirect from "../pages/Dashboard/DashboardRedirect";
 
 export const router = createBrowserRouter([
     {
@@ -45,77 +51,81 @@ export const router = createBrowserRouter([
     },
     {
         path: "dashboard",
-        element: <DashboardLayout></DashboardLayout>,
+        element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
         children: [
             {
+                index: true,
+                element: <DashboardRedirect></DashboardRedirect>
+            },
+            {
                 path: 'worker-home',
-                element: <WorkerHome></WorkerHome>
+                element: <WorkerRoute><WorkerHome></WorkerHome></WorkerRoute>
             },
             {
                 path: 'buyer-home',
-                element: <BuyerHome></BuyerHome>
+                element: <BuyerRoute><BuyerHome></BuyerHome></BuyerRoute>
             },
             {
                 path: 'admin-home',
-                element: <AdminHome></AdminHome>
+                element: <AdminRoute><AdminHome></AdminHome></AdminRoute>
             },
             {
                 path: 'manage-users',
-                element: <ManageUsers></ManageUsers>
+                element: <AdminRoute><ManageUsers></ManageUsers></AdminRoute>
             },
             {
                 path: 'add-task',
-                element: <AddTask></AddTask>
+                element: <BuyerRoute><AddTask></AddTask></BuyerRoute>
             },
             {
                 path: 'my-tasks',
-                element: <MyTasks></MyTasks>
+                element: <BuyerRoute><MyTasks></MyTasks></BuyerRoute>
             },
             {
                 path: 'update-task/:id',
-                element: <UpdateTask></UpdateTask>,
+                element: <BuyerRoute><UpdateTask></UpdateTask></BuyerRoute>,
 
             },
             {
                 path: 'task-list',
-                element: <TaskList></TaskList>
+                element: <WorkerRoute><TaskList></TaskList></WorkerRoute>
             },
             {
                 path: 'task-details/:id',
-                element: <TaskDetails></TaskDetails>,
+                element: <WorkerRoute><TaskDetails></TaskDetails></WorkerRoute>,
                 loader: ({ params }) => fetch(`${import.meta.env.VITE_API_URL}/tasks/${params.id}`).then(res => res.json())
             },
             {
                 path: 'task-to-review',
-                element: <TaskToReview></TaskToReview>
+                element: <BuyerRoute><TaskToReview></TaskToReview></BuyerRoute>
             },
             {
                 path: 'purchase-coin',
-                element: <PurchaseCoin></PurchaseCoin>
+                element: <BuyerRoute><PurchaseCoin></PurchaseCoin></BuyerRoute>
             },
             {
                 path: 'payment-history',
-                element: <PaymentHistory></PaymentHistory>
+                element: <BuyerRoute><PaymentHistory></PaymentHistory></BuyerRoute>
             },
             {
                 path: 'my-submissions',
-                element: <MySubmissions></MySubmissions>
+                element: <WorkerRoute><MySubmissions></MySubmissions></WorkerRoute>
             },
             {
                 path: 'withdrawals',
-                element: <Withdrawals></Withdrawals>
+                element: <WorkerRoute><Withdrawals></Withdrawals></WorkerRoute>
             },
             {
                 path: 'manage-tasks',
-                element: <ManageTasks></ManageTasks>
+                element: <AdminRoute><ManageTasks></ManageTasks></AdminRoute>
             },
             {
                 path: 'withdraw-requests',
-                element: <WithdrawRequests></WithdrawRequests>
+                element: <AdminRoute><WithdrawRequests></WithdrawRequests></AdminRoute>
             },
             {
                 path: 'payment/success',
-                element: <PaymentSuccess></PaymentSuccess>
+                element: <BuyerRoute><PaymentSuccess></PaymentSuccess></BuyerRoute>
             },
             {
                 path: 'profile',
